@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="varDB">
+		<class>org.vardb.model.entity.Diseas</class>
+		<class>org.vardb.model.entity.DiseasesDrug</class>
+		<class>org.vardb.model.entity.DiseasesRef</class>
+		<class>org.vardb.model.entity.Drug</class>
+		<class>org.vardb.model.entity.Family</class>
+		<class>org.vardb.model.entity.FamiliesRef</class>
+		<class>org.vardb.model.entity.Ortholog</class>
+		<class>org.vardb.model.entity.OrthologsRef</class>
+		<class>org.vardb.model.entity.Paralog</class>
+		<class>org.vardb.model.entity.Pathogen</class>
+		<class>org.vardb.model.entity.PathogensDiseas</class>
+		<class>org.vardb.model.entity.PathogensDrug</class>
+		<class>org.vardb.model.entity.PathogensRef</class>
+		<class>org.vardb.model.entity.Ref</class>
+		<class>org.vardb.model.entity.Taxon</class>
+	</persistence-unit>
+</persistence>

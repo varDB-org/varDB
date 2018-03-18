@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>varDB: Antigenic variation database</title>
+    <link href="/css/jquery-ui.min.css" th:href="@{/css/jquery-ui.min.css}" rel="stylesheet"></link>
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <link href="/css/tabulator.min.css" th:href="@{/css/tabulator.min.css}" rel="stylesheet"></link>
+    <link href="/css/vardb.css" th:href="@{/css/vardb.css}" rel="stylesheet"></link>
+    <script src="/js/jquery-3.3.1.min.js" th:href="@{/js/jquery-3.3.1.min.js}"></script>
+    <script src="/js/jquery-ui.min.js" th:href="@{/js/jquery-ui.min.js}"></script>
+    <script src="/js/jquery.numeric.min.js" th:href="@{/js/jquery.numeric.min.js}"></script>
+    <script src="/js/bootstrap.min.js" th:href="@{/js/bootstrap.min.js}"></script>
+    <script src="/js/tabulator.min.js" th:href="@{/js/tabulator.min.js}"></script>
+    <script src="/js/vardb.js" th:href="@{/js/vardb.js}"></script>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>varDB</h1>
+        <p>A database of gene families involved in antigenic variation</p>
+      </div>
+    </div>
+
+   <div class="container-fluid">
+     <nav class="bg-faded sidebar" style="width: 18%; min-width: 125px; float: left;">
+       <ul class="nav nav-pills flex-column">
+         <li class="nav-item" th:each="page : ${pages}">
+           <a class="nav-link active" th:if="${name} == ${page.name}" th:href="${page.name}" th:text="${page.title}"></a>
+           <a class="nav-link" th:if="${name} != ${page.name}" th:href="${page.name}" th:text="${page.title}"></a>
+         </li>
+       </ul>
+     </nav>
+     <div style="width: 80%; float: left; padding-left: 20px;">
+       <section layout:fragment="content"></section>
+     </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <body>
+    <section layout:fragment="content" th:object="${ item }">
+      <h2>
+        <span>Pathogen:</span>
+        <span th:text="*{ accession }"></span>
+      </h2>
+      <div th:object="${ pathogen }">
+        <div th:utext="*{ html }">
+        </div>
+      </div>
+      <table class="table" style="margin-top: 30px;">
+        <tr>
+          <th>Accession</th>
+          <td th:text="*{ accession }"></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td th:text="*{ name }"></td>
+        </tr>
+		<tr>
+          <th>Abbreviation</th>
+          <td th:text="*{ description }"></td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td th:text="*{ description }"></td>
+        </tr>
+        <tr>
+          <th>Alias</th>
+          <td th:text="*{ alias }"></td>
+        </tr>
+        <tr>
+          <th>Chromosomes</th>
+          <td th:text="*{ chromosomes }"></td>
+        </tr>
+        <tr>
+          <th>Genome</th>
+          <td th:text="*{ genome }"></td>
+        </tr>
+        <tr>
+          <th>Distribution</th>
+          <td th:text="*{ distribution }"></td>
+        </tr>
+        <tr>
+          <th>Hosts</th>
+          <td th:text="*{ hosts }"></td>
+        </tr>
+        <tr>
+          <th>GC Content</th>
+          <td th:text="*{ gccontent }"></td>
+        </tr>
+        <tr>
+          <th>Dtype</th>
+          <td th:text="*{ dtype }"></td>
+        </tr>
+        <tr>
+          <th>Lifecycle</th>
+          <td th:text="*{ lifecycle }"></td>
+        </tr>
+        <tr>
+          <th>Notes</th>
+          <td th:text="*{ notes }"></td>
+        </tr>
+        <tr>
+          <th>Taxonomy Group</th>
+          <td th:text="*{ taxgroup }"></td>
+        </tr>
+        <tr>
+          <th>Codonusage</th>
+          <td th:text="*{ codonusage }"></td>
+        </tr>
+        <tr>
+          <th>Anti Genic Variation</th>
+          <td th:text="*{ antigenicvariation }"></td>
+        </tr>
+        <tr>
+          <th>Bacteria Appendages</th>
+          <td th:text="*{ bacteriaAppendages }"></td>
+        </tr>
+        <tr>
+          <th>Bacteria Gram</th>
+          <td th:text="*{ bacteriaGram }"></td>
+        </tr>
+        <tr>
+          <th>Bacteria Morphology</th>
+          <td th:text="*{ bacteriaMorphology }"></td>
+        </tr>
+        <tr>
+          <th>Bacteria Plasmids</th>
+          <td th:text="*{ bacteriaPlasmids }"></td>
+        </tr>
+        <tr>
+          <th>Bacteria Size</th>
+          <td th:text="*{ bacteriaSize }"></td>
+        </tr>
+        <tr>
+          <th>Virus Baltimore</th>
+          <td th:text="*{ virusBaltimore }"></td>
+        </tr>
+        <tr>
+          <th>Virus Nucleicacidtype</th>
+          <td th:text="*{ virusNucleicacidtype }"></td>
+        </tr>
+        <tr>
+          <th>Virus Sense</th>
+          <td th:text="*{ virusSense }"></td>
+        </tr>
+        <tr>
+          <th>Virus Shape</th>
+          <td th:text="*{ virusShape }"></td>
+        </tr>
+        <tr>
+          <th>Virus Size</th>
+          <td th:text="*{ virusSize }"></td>
+        </tr>
+        <tr>
+          <th>Virus Strandedness</th>
+          <td th:text="*{ virusStrandedness }"></td>
+        </tr>
+        <tr>
+          <th>#Base</th>
+          <td th:text="*{ numbases }"></td>
+        </tr>
+        <tr>
+          <th>#Gene</th>
+          <td th:text="*{ numgenes }"></td>
+        </tr>
+        <tr>
+          <th>#Protein</th>
+          <td th:text="*{ numproteins }"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <h4>Diseases</h4>
+      <div id="diseases"></div>
+      <h4 style="margin-top: 30px;">Drugs</h4>
+      <div id="drugs"></div>
+      <h4 style="margin-top: 30px;">References</h4>
+      <div id="refs"></div>
+      <script th:inline="javascript">
+          vardb.createPathogenDiseaseTable( [[ ${ id } ]] );
+          vardb.createPathogenDrugTable( [[ ${ id } ]] );
+          vardb.createPathogenReferenceTable( [[ ${ id } ]] );
+      </script>
+    </section>
+  </body>
+</html>

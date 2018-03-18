@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <body>
+    <section layout:fragment="content" th:object="${ item }">
+      <h2>
+        <span>Ortholog:</span>
+        <span th:text="*{ accession }"></span>
+      </h2>
+      <div th:object="${ ortholog }">
+        <div th:utext="*{ html }">
+        </div>
+      </div>
+      <table class="table" style="margin-top: 30px;">
+        <tr>
+          <th>Accession</th>
+          <td th:text="*{ accession }"></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td th:text="*{ name }"></td>
+        </tr>
+        <tr th:object="${ ortholog }">
+          <th>Description</th>
+          <td th:text="*{ description }"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <h4>Families</h4>
+      <div id="families"></div>
+      <h4  style="margin-top: 30px">References</h4>
+      <div id="refs"></div>
+      <script th:inline="javascript">
+          vardb.createOrthologFamilyTable( [[ ${ id } ]] );
+          vardb.createOrthologReferenceTable( [[ ${ id } ]] );
+      </script>
+      <div th:if="${ item.getKeggOrtholog() != null and !item.getKeggOrtholog().isEmpty() }">
+        <h4 style="margin-top: 30px">
+          KEGG Ortholog:
+        <span th:text="*{ keggOrtholog }"></span></h4>
+        <div id="kegg_ortholog"></div>
+        <script th:inline="text">
+            $( '#kegg_ortholog' ).load( 'kegg_ortholog?id=[[ ${ item.getKeggOrtholog() } ]]' );
+        </script>
+      </div>
+    </section>
+  </body>
+</html>

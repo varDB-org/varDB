@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <body>
+    <section layout:fragment="content" th:object="${ item }">
+      <h2>
+        <span>Family:</span>
+        <span th:text="*{ name }"></span>
+      </h2>
+      <div th:object="${ family }">
+        <div th:utext="*{ html }">
+        </div>
+      </div>
+      <table class="table" style="margin-top: 30px;">
+        <tr>
+          <th>Name</th>
+          <td th:text="*{ name }"></td>
+        </tr>
+        <tr>
+          <th>Abbregation</th>
+          <td th:text="*{ abbr }"></td>
+        </tr>
+        <tr th:object="${ family }">
+          <th>Description</th>
+          <td th:text="*{ description }"></td>
+        </tr>
+        <tr>
+          <th>Pathogen</th>
+          <td th:utext="*{ pathogen }"></td>
+        </tr>
+        <tr>
+          <th>Ortholog</th>
+          <td th:utext="*{ ortholog }"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <h4>References</h4>
+      <div id="refs"></div>
+      <script th:inline="javascript">
+          vardb.createFamilyReferenceTable( [[ ${ id } ]] );
+      </script>
+    </section>
+  </body>
+</html>
