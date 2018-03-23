@@ -70,6 +70,8 @@ public class OrthologController {
     		model.addAttribute( "ortholog", ortholog );
     		model.addAttribute( "item", item );
     		model.addAttribute( "id", id );
+    		model.addAttribute( "refCount", this.service.referenceCount( id ) );
+    		model.addAttribute( "familyCount", ortholog.getFamilies().size() );
     	}
     	model.addAttribute( "pages", HtmlTool.getPages() );
     	model.addAttribute( "name", "ortholog" );

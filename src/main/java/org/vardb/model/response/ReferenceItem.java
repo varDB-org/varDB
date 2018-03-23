@@ -11,7 +11,7 @@ public class ReferenceItem {
 	private String journal;
 	private String year;
 	private String pages;
-	private Integer pmid;
+	private String pmid;
 	private String publisher;
 	private String abst;
 	private String city;
@@ -131,11 +131,11 @@ public class ReferenceItem {
 		this.pages = pages;
 	}
 
-	public Integer getPmid() {
+	public String getPmid() {
 		return this.pmid;
 	}
 
-	public void setPmid(Integer pmid) {
+	public void setPmid(String pmid) {
 		this.pmid = pmid;
 	}
 

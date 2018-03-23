@@ -31,14 +31,20 @@
           <td></td>
         </tr>
       </table>
-      <h4>Families</h4>
-      <div id="families"></div>
-      <h4  style="margin-top: 30px">References</h4>
-      <div id="refs"></div>
-      <script th:inline="javascript">
+      <div th:if="${ familyCount } > 0">
+        <h4>Families</h4>
+        <div id="families"></div>
+        <script th:inline="javascript">
           vardb.createOrthologFamilyTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ refCount } > 0">
+        <h4  style="margin-top: 30px">References</h4>
+        <div id="refs"></div>
+        <script th:inline="javascript">
           vardb.createOrthologReferenceTable( [[ ${ id } ]] );
-      </script>
+        </script>
+      </div>
       <div th:if="${ item.getKeggOrtholog() != null and !item.getKeggOrtholog().isEmpty() }">
         <h4 style="margin-top: 30px">
           KEGG Ortholog:

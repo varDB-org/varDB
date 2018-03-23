@@ -31,14 +31,6 @@
           <td th:text="*{ diagnosis }"></td>
         </tr>
         <tr>
-          <th>Drugs</th>
-          <td th:text="*{ drugs }"></td>
-        </tr>
-        <tr>
-          <th>Human</th>
-          <td th:text="*{ human }"></td>
-        </tr>
-        <tr>
           <th>Distribution</th>
           <td th:text="*{ distribution }"></td>
         </tr>
@@ -50,7 +42,7 @@
           <th>Host</th>
           <td th:text="*{ host }"></td>
         </tr>
-        <tr>
+        <tr th:if="${ isHuman }">
           <th>ICD10</th>
           <td th:text="*{ icd10 }"></td>
         </tr>
@@ -99,14 +91,27 @@
           <td></td>
         </tr>
       </table>
-      <h4>Drugs</h4>
-      <div id="drugs"></div>
-      <h4 style="margin-top: 30px;">Pathogens</h4>
-      <div id="pathogens"></div>
-      <script th:inline="javascript">
-          vardb.createDiseasePathogenTable( [[ ${ id } ]] );
+      <div th:if="${ drugCount } > 0">
+        <h4>Drugs</h4>
+        <div id="drugs"></div>
+        <script th:inline="javascript">
           vardb.createDiseaseDrugTable( [[ ${ id } ]] );
-      </script>
+        </script>
+      </div>
+      <div th:if="${ pathogenCount } > 0">
+        <h4 style="margin-top: 30px;">Pathogens</h4>
+        <div id="pathogens"></div>
+        <script th:inline="javascript">
+          vardb.createDiseasePathogenTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ refCount } > 0">
+        <h4 style="margin-top: 30px;">References</h4>
+        <div id="refs"></div>
+        <script th:inline="javascript">
+          vardb.createDiseaseReferenceTable( [[ ${ id } ]] );
+        </script>
+      </div>
     </section>
   </body>
 </html>

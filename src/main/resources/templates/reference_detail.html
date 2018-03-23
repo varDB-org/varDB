@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <body>
+    <section layout:fragment="content" th:object="${ item }">
+      <h2>
+        <span>Reference:</span>
+        <span th:text="*{ accession }"></span>
+      </h2>
+      <table class="table" style="margin-top: 30px;">
+        <tr>
+          <th>Name</th>
+          <td th:text="*{ name }"></td>
+        </tr>
+        <tr>
+          <th>Title</th>
+          <td th:text="*{ title }"></td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td th:text="*{ type }"></td>
+        </tr>
+        <tr>
+          <th>Authors</th>
+          <td th:text="*{ authors }"></td>
+        </tr>
+        <tr>
+          <th>Journal</th>
+          <td th:text="*{ journal }"></td>
+        </tr>
+        <tr>
+          <th>Year</th>
+          <td th:text="*{ year }"></td>
+        </tr>
+        <tr>
+          <th>PMID</th>
+          <td th:utext="*{ pmid }"></td>
+        </tr>
+        <tr>
+          <th>Publisher</th>
+          <td th:text="*{ publisher }"></td>
+        </tr>
+        <tr>
+          <th>Abstract</th>
+          <td th:text="*{ abstract }"></td>
+        </tr>
+        <tr>
+          <th>City</th>
+          <td th:text="*{ city }"></td>
+        </tr>
+        <tr>
+          <th>Volume</th>
+          <td th:text="*{ volume }"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div th:if="${ familyCount } > 0">
+        <h4 style="margin-top: 30px;">Families</h4>
+        <div id="families"></div>
+        <script th:inline="javascript">
+          vardb.createReferenceFamilyTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ orthologCount } > 0">
+        <h4 style="margin-top: 30px;">Orthologs</h4>
+        <div id="orthologs"></div>
+        <script th:inline="javascript">
+          vardb.createReferenceOrthologTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ diseaseCount } > 0">
+        <h4 style="margin-top: 30px;">Diseases</h4>
+        <div id="diseases"></div>
+        <script th:inline="javascript">
+          vardb.createReferenceDiseaseTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ pathogenCount } > 0">
+        <h4 style="margin-top: 30px;">Pathogens</h4>
+        <div id="pathogens"></div>
+        <script th:inline="javascript">
+          vardb.createReferencePathogenTable( [[ ${ id } ]] );
+        </script>
+      </div>
+    </section>
+  </body>
+</html>

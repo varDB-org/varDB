@@ -16,29 +16,19 @@ public class DatabaseTool {
 	 * @return expression
 	 */
 	public static BooleanExpression getExpression( StringPath[] columns, String keyword ) {
-		BooleanExpression expression = null;
+		BooleanExpression expression = columns[ 0 ].like( "%" );
 
 		StringTokenizer tokenizer = new StringTokenizer( keyword );
 		while( tokenizer.hasMoreTokens() ) {
 			String token = tokenizer.nextToken();
-			BooleanExpression keywordExpression = null;
+			BooleanExpression keywordExpression = columns[ 0 ].notLike( "%" );
 
 			for( StringPath column : columns ) {
 				BooleanExpression currentExpression = column.containsIgnoreCase( token );
-				if( keywordExpression == null ) {
-					keywordExpression = currentExpression;
-				}
-				else {
-					keywordExpression = keywordExpression.or( currentExpression );
-				}
+				keywordExpression = keywordExpression.or( currentExpression );
 			}
 
-			if( expression == null ) {
-				expression = keywordExpression;
-			}
-			else {
-				expression = expression.and( keywordExpression );
-			}
+			expression = expression.and( keywordExpression );
 		}
 
 		return expression;

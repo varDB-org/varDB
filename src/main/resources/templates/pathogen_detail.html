@@ -24,7 +24,7 @@
         </tr>
 		<tr>
           <th>Abbreviation</th>
-          <td th:text="*{ description }"></td>
+          <td th:text="*{ abbr }"></td>
         </tr>
         <tr>
           <th>Description</th>
@@ -78,50 +78,7 @@
           <th>Anti Genic Variation</th>
           <td th:text="*{ antigenicvariation }"></td>
         </tr>
-        <tr>
-          <th>Bacteria Appendages</th>
-          <td th:text="*{ bacteriaAppendages }"></td>
-        </tr>
-        <tr>
-          <th>Bacteria Gram</th>
-          <td th:text="*{ bacteriaGram }"></td>
-        </tr>
-        <tr>
-          <th>Bacteria Morphology</th>
-          <td th:text="*{ bacteriaMorphology }"></td>
-        </tr>
-        <tr>
-          <th>Bacteria Plasmids</th>
-          <td th:text="*{ bacteriaPlasmids }"></td>
-        </tr>
-        <tr>
-          <th>Bacteria Size</th>
-          <td th:text="*{ bacteriaSize }"></td>
-        </tr>
-        <tr>
-          <th>Virus Baltimore</th>
-          <td th:text="*{ virusBaltimore }"></td>
-        </tr>
-        <tr>
-          <th>Virus Nucleicacidtype</th>
-          <td th:text="*{ virusNucleicacidtype }"></td>
-        </tr>
-        <tr>
-          <th>Virus Sense</th>
-          <td th:text="*{ virusSense }"></td>
-        </tr>
-        <tr>
-          <th>Virus Shape</th>
-          <td th:text="*{ virusShape }"></td>
-        </tr>
-        <tr>
-          <th>Virus Size</th>
-          <td th:text="*{ virusSize }"></td>
-        </tr>
-        <tr>
-          <th>Virus Strandedness</th>
-          <td th:text="*{ virusStrandedness }"></td>
-        </tr>
+
         <tr>
           <th>#Base</th>
           <td th:text="*{ numbases }"></td>
@@ -139,17 +96,27 @@
           <td></td>
         </tr>
       </table>
-      <h4>Diseases</h4>
-      <div id="diseases"></div>
-      <h4 style="margin-top: 30px;">Drugs</h4>
-      <div id="drugs"></div>
-      <h4 style="margin-top: 30px;">References</h4>
-      <div id="refs"></div>
-      <script th:inline="javascript">
+      <div th:if="${ diseaseCount } > 0">
+        <h4>Diseases</h4>
+        <div id="diseases"></div>
+        <script th:inline="javascript">
           vardb.createPathogenDiseaseTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ drugCount } > 0">
+        <h4 style="margin-top: 30px;">Drugs</h4>
+        <div id="drugs"></div>
+        <script th:inline="javascript">
           vardb.createPathogenDrugTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ refCount } > 0">
+        <h4 style="margin-top: 30px;">References</h4>
+        <div id="refs"></div>
+        <script th:inline="javascript">
           vardb.createPathogenReferenceTable( [[ ${ id } ]] );
-      </script>
+        </script>
+      </div>
     </section>
   </body>
 </html>

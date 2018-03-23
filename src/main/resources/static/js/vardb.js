@@ -138,7 +138,7 @@ vardb.createFamilyTable = function() {
 	$( '#button-search' ).click( vardb.onClickSearchButton );
 }
 
-// create ortholog family table
+//create ortholog family table
 vardb.createOrthologFamilyTable = function( id ) {
 	var params = {
 		columns: vardb.getFamilyColumns(),
@@ -153,16 +153,38 @@ vardb.createOrthologFamilyTable = function( id ) {
 	vardb.createTable( $( '#families' ), params, 'family' );
 }
 
+//create reference family table
+vardb.createReferenceFamilyTable = function( id ) {
+	var params = {
+		columns: vardb.getFamilyColumns(),
+		ajaxURL: 'reference_families',
+		ajaxConfig: 'GET',
+		ajaxParams:{ id: id },
+		initialSort: [
+			{ column: 'link', dir: 'asc' }
+		]
+	};
+
+	vardb.createTable( $( '#families' ), params, 'family' );
+}
+
+// get ortholog columns
+vardb.getOrthologColumns = function() {
+	var columns = [
+    	{ title: 'Accession', field: 'link', minWidth: 150, formatter: 'html' },
+        { title: 'Name', field: 'name', minWidth: 150 },
+        { title: 'Description', field: 'description', minWidth: 200 },
+        { title: 'KEGG Ortholog', field: 'keggOrtholog', minWidth: 150 },
+        { title: 'KEGG Pathway', field: 'keggPathway', minWidth: 150 },
+    ];
+
+	return columns;
+}
+
 //create ortholog page
 vardb.createOrthologTable = function() {
     var params = {
-        columns: [
-        	{ title: 'Accession', field: 'link', minWidth: 150, formatter: 'html' },
-            { title: 'Name', field: 'name', minWidth: 150 },
-            { title: 'Description', field: 'description', minWidth: 200 },
-            { title: 'KEGG Ortholog', field: 'keggOrtholog', minWidth: 150 },
-            { title: 'KEGG Pathway', field: 'keggPathway', minWidth: 150 },
-        ],
+        columns: vardb.getOrthologColumns(),
         ajaxURL: 'orthologs',
         ajaxConfig: 'GET',
         ajaxParams:{ keyword: $( '#input-keyword' ).val() },
@@ -173,6 +195,21 @@ vardb.createOrthologTable = function() {
 
 	vardb.createTable( $( '#content' ), params, "table" );
 	$( '#button-search' ).click( vardb.onClickSearchButton );
+}
+
+//create reference ortholog page
+vardb.createReferenceOrthologTable = function( id ) {
+    var params = {
+        columns: vardb.getOrthologColumns(),
+        ajaxURL: 'reference_orthologs',
+        ajaxConfig: 'GET',
+        ajaxParams:{ id: id },
+        initialSort: [
+            { column: 'link', dir: 'asc' }
+        ]
+    };
+
+	vardb.createTable( $( '#orthologs' ), params, "ortholog" );
 }
 
 // taxonomy columns
@@ -320,6 +357,21 @@ vardb.createDrugDiseaseTable = function( id ) {
 	vardb.createTable( $( '#diseases' ), params, "disease" );
 }
 
+//create disease page
+vardb.createReferenceDiseaseTable = function( id ) {
+    var params = {
+        columns: vardb.getDiseaseColumns(),
+        ajaxURL: 'reference_diseases',
+        ajaxConfig: 'GET',
+        ajaxParams:{ id: id },
+        initialSort: [
+            { column: 'link', dir: 'asc' }
+        ]
+    };
+
+	vardb.createTable( $( '#diseases' ), params, "disease" );
+}
+
 // pathogen columns
 vardb.getPathogenColumns = function() {
     var columns = [
@@ -340,17 +392,6 @@ vardb.getPathogenColumns = function() {
     	{ title: 'Lifecycle', field: 'lifecycle', minWidth: 200 },
     	{ title: 'Taxonomy Group', field: 'taxgroup', minWidth: 200 },
     	{ title: 'Anti Genic Variation', field: 'antigenicvariation', minWidth: 200 },
-    	{ title: 'Bacteria Appendages', field: 'bacteriaAppendages', minWidth: 200 },
-    	{ title: 'Bacteria Gram', field: 'bacteriaGram', minWidth: 200 },
-    	{ title: 'Bacteria Morphology', field: 'bacteriaMorphology', minWidth: 200 },
-    	{ title: 'Bacteria Plasmids', field: 'bacteriaPlasmids', minWidth: 200 },
-    	{ title: 'Bacteria Size', field: 'bacteriaSize', minWidth: 200 },
-    	{ title: 'Virus Baltimore', field: 'virusBaltimore', minWidth: 200 },
-    	{ title: 'Virus Nucleicacidtype', field: 'virusNucleicacidtype', minWidth: 200 },
-    	{ title: 'Virus Sense', field: 'virusSense', minWidth: 200 },
-    	{ title: 'Virus Shape', field: 'virusShape', minWidth: 200 },
-    	{ title: 'Virus Size', field: 'virusSize', minWidth: 200 },
-    	{ title: 'Virus Strandedness', field: 'virusStrandedness', minWidth: 200 },
     	{ title: '#Base', field: 'numbases', minWidth: 100, align: 'right' },
     	{ title: '#Gene', field: 'numgenes', minWidth: 100, align: 'right' },
     	{ title: '#Protein', field: 'numproteins', minWidth: 100, align: 'right' },
@@ -395,6 +436,21 @@ vardb.createDiseasePathogenTable = function( id ) {
     var params = {
         columns: vardb.getPathogenColumns(),
         ajaxURL: 'disease_pathogens',
+        ajaxConfig: 'GET',
+        ajaxParams:{ id: id },
+        initialSort: [
+            { column: 'link', dir: 'asc' }
+        ]
+    };
+
+	vardb.createTable( $( '#pathogens' ), params, "pathogen" );
+}
+
+//create pathogen page
+vardb.createReferencePathogenTable = function( id ) {
+    var params = {
+        columns: vardb.getPathogenColumns(),
+        ajaxURL: 'reference_pathogens',
         ajaxConfig: 'GET',
         ajaxParams:{ id: id },
         initialSort: [
@@ -495,7 +551,7 @@ vardb.getReferenceColumns = function() {
         { title: 'Journal', field: 'journal', minWidth: 200 },
         { title: 'Year', field: 'year', minWidth: 200 },
         { title: 'Pages', field: 'pages', minWidth: 200 },
-        { title: 'PMID', field: 'pmid', minWidth: 200 },
+        { title: 'PMID', field: 'pmid', minWidth: 200, formatter: 'html' },
         { title: 'Publisher', field: 'publisher', minWidth: 200 },
         { title: 'Abstract', field: 'abstract', minWidth: 200 },
         { title: 'City', field: 'city', minWidth: 200 },
@@ -566,4 +622,45 @@ vardb.createPathogenReferenceTable = function( id ) {
 	};
 
 	vardb.createTable( $( '#refs' ), params, "reference" );
+}
+
+//create pathogen reference page
+vardb.createDiseaseReferenceTable = function( id ) {
+	var params = {
+		columns: vardb.getReferenceColumns(),
+		ajaxURL: 'disease_refs',
+		ajaxConfig: 'GET',
+		ajaxParams:{ id: id },
+		initialSort: [
+			{ column: 'link', dir: 'asc' }
+		]
+	};
+
+	vardb.createTable( $( '#refs' ), params, "reference" );
+}
+
+// create gene page
+vardb.createGeneTable = function( family ) {
+	var params = {
+		columns: [
+			{ title: 'ID', field: 'link', minWidth: 150, formatter: 'html' },
+			{ title: 'Description', field: 'description', minWidth: 200 },
+			{ title: 'Family', field: 'family', minWidth: 150 },
+			{ title: 'Species', field: 'species', minWidth: 150 },
+			{ title: 'OC', field: 'oc', minWidth: 150 }
+/*
+			,
+			{ title: 'AA Length', field: 'aaLength', minWidth: 150, align: 'right' },
+			{ title: 'NT Length', field: 'ntLength', minWidth: 150, align: 'right' },
+*/
+		],
+		ajaxURL: 'genes',
+		ajaxConfig: 'GET',
+		ajaxParams: { family: family },
+		initialSort: [
+			{ column: 'link', dir: 'asc' }
+		]
+	};
+
+	vardb.createTable( $( '#genes' ), params, "gene" );
 }

@@ -36,21 +36,27 @@
         </tr>
         <tr>
           <th>Right</th>
-          <td th:text="*{ rght}"></td>
+          <td th:text="*{ rght }"></td>
         </tr>
         <tr>
           <td></td>
           <td></td>
         </tr>
       </table>
-      <h4>Children</h4>
-      <div id="children"></div>
-      <h4 style="margin-top: 30px;">Pathogens</h4>
-      <div id="pathogens"></div>
-      <script th:inline="javascript">
+      <div th:if="${ childCount } > 0">
+        <h4>Children</h4>
+        <div id="children"></div>
+        <script th:inline="javascript">
           vardb.createTaxonChildTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ pathogenCount } > 0">
+        <h4 style="margin-top: 30px;">Pathogens</h4>
+        <div id="pathogens"></div>
+        <script th:inline="javascript">
           vardb.createTaxonPathogenTable( [[ ${ id } ]] );
-      </script>
+        </script>
+      </div>
     </section>
   </body>
 </html>

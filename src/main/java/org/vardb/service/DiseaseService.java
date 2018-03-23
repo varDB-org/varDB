@@ -10,16 +10,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.vardb.model.entity.Diseas;
 import org.vardb.model.entity.DiseasesDrug;
+import org.vardb.model.entity.DiseasesRef;
 import org.vardb.model.entity.PathogensDiseas;
 import org.vardb.model.entity.QDiseas;
 import org.vardb.model.entity.QDiseasesDrug;
+import org.vardb.model.entity.QDiseasesRef;
 import org.vardb.model.entity.QPathogensDiseas;
 import org.vardb.model.response.DiseaseItem;
 import org.vardb.model.response.DrugItem;
 import org.vardb.model.response.PageResult;
 import org.vardb.model.response.PathogenItem;
+import org.vardb.model.response.ReferenceItem;
 import org.vardb.repository.DiseaseRepository;
 import org.vardb.repository.DiseasesDrugRepository;
+import org.vardb.repository.DiseasesRefRepository;
 import org.vardb.repository.PathogensDiseasRepository;
 import org.vardb.tool.DatabaseTool;
 import org.vardb.tool.HtmlTool;
@@ -37,6 +41,9 @@ public class DiseaseService {
 
 	@Autowired
 	DiseasesDrugRepository drugRepository;
+
+	@Autowired
+	DiseasesRefRepository refRepository;
 
 	/**
 	 * finds all diseases
@@ -62,6 +69,42 @@ public class DiseaseService {
 	public Diseas findDisease( Integer id ) {
 		Diseas disease = this.repository.findOne( id );
 		return disease;
+	}
+
+	/**
+	 * reference count
+	 * @param id  ID
+	 * @return reference count
+	 */
+	public Long referenceCount( Integer id ) {
+		QDiseasesRef qRef = QDiseasesRef.diseasesRef;
+		BooleanExpression expression = qRef.diseas.id.eq( id );
+		Long count = this.refRepository.count( expression );
+		return count;
+	}
+
+	/**
+	 * drug count
+	 * @param id ID
+	 * @return drug count
+	 */
+	public Long drugCount( Integer id ) {
+		QDiseasesDrug qDrug = QDiseasesDrug.diseasesDrug;
+		BooleanExpression expression = qDrug.diseas.id.eq( id );
+		Long count = this.drugRepository.count( expression );
+		return count;
+	}
+
+	/**
+	 * pathogen count
+	 * @param id ID
+	 * @return pathogen count
+	 */
+	public Long pathogenCount( Integer id ) {
+		QPathogensDiseas qPathogen = QPathogensDiseas.pathogensDiseas;
+		BooleanExpression expression = qPathogen.diseas.id.eq( id );
+		Long count = this.pathogenRepository.count( expression );
+		return count;
 	}
 
 	/**
@@ -189,6 +232,45 @@ public class DiseaseService {
 		);
 
 		Page< DrugItem > itemsPage = new PageImpl< DrugItem >( items, pageable, count );
+		PageResult result = new PageResult( itemsPage );
+		result.setTotal_count( count );
+		result.setFiltered_count( count );
+
+		return result;
+	}
+
+	/**
+	 * gets the page information
+	 * @param page page number
+	 * @param size page size
+	 * @param sort sort field
+	 * @param dir sort direction
+	 * @return page result
+	 */
+	public PageResult refPage( Integer id, Integer page, Integer size, String sort, String dir ) {
+		if( sort.equals( "accession" ) || sort.equals( "link" ) ) {
+			sort = "identifier";
+		}
+		sort = "ref." + sort;
+
+		Pageable pageable = HtmlTool.getPageRequest( page,  size,  sort,  dir );
+
+		QDiseasesRef qRef = QDiseasesRef.diseasesRef;
+		BooleanExpression expression = qRef.diseas.id.eq( id );
+
+		Page< DiseasesRef > refs = this.refRepository.findAll( expression, pageable );
+		Long count = refs.getTotalElements();
+
+		ArrayList< ReferenceItem > items = new ArrayList< ReferenceItem >();
+
+		refs.forEach(
+			( ref ) -> {
+				ReferenceItem item = ReferenceService.convertReferenceToItem( ref.getRef() );
+				items.add( item );
+			}
+		);
+
+		Page< ReferenceItem > itemsPage = new PageImpl< ReferenceItem >( items, pageable, count );
 		PageResult result = new PageResult( itemsPage );
 		result.setTotal_count( count );
 		result.setFiltered_count( count );

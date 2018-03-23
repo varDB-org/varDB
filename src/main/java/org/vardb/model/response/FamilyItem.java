@@ -41,7 +41,7 @@ public class FamilyItem {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	/**
 	 * sets the link
 	 * @param link link
@@ -49,7 +49,7 @@ public class FamilyItem {
 	public void setLink( String link ) {
 		this.link = link;
 	}
-	
+
 	/**
 	 * gets the link
 	 * @return link
@@ -65,7 +65,7 @@ public class FamilyItem {
 	public void setAbbr( String abbr ) {
 		this.abbr = abbr;
 	}
-	
+
 	/**
 	 * gets the abbrigation
 	 * @return abbregation

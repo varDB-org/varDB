@@ -83,6 +83,9 @@ public class PathogenController {
     		model.addAttribute( "pathogen", pathogen );
     		model.addAttribute( "item", item );
     		model.addAttribute( "id", id );
+    		model.addAttribute( "drugCount", this.service.drugCount( id ) );
+    		model.addAttribute( "diseaseCount", this.service.diseaseCount( id ) );
+    		model.addAttribute( "refCount", this.service.referenceCount( id ) );
     	}
     	model.addAttribute( "pages", HtmlTool.getPages() );
     	model.addAttribute( "name", "pathogen" );

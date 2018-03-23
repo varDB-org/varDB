@@ -72,6 +72,55 @@ public class PathogenService {
 	}
 
 	/**
+	 * finds pathogen
+	 * @param kegg kegg
+	 * @return pathogen
+	 */
+	public Pathogen findPathogenByKeggOrganism( String keggOrg ) {
+		QPathogen qPathogen = QPathogen.pathogen;
+		BooleanExpression expression = qPathogen.keggOrganism.eq( keggOrg );
+		Pathogen pathogen = this.repository.findOne( expression );
+
+		return pathogen;
+	}
+
+	/**
+	 * reference count
+	 * @param id  ID
+	 * @return reference count
+	 */
+	public Long referenceCount( Integer id ) {
+		QPathogensRef qRef = QPathogensRef.pathogensRef;
+		BooleanExpression expression = qRef.pathogen.id.eq( id );
+		Long count = this.refRepository.count( expression );
+		return count;
+	}
+
+	/**
+	 * drug count
+	 * @param id ID
+	 * @return drug count
+	 */
+	public Long drugCount( Integer id ) {
+		QPathogensDrug qDrug = QPathogensDrug.pathogensDrug;
+		BooleanExpression expression = qDrug.pathogen.id.eq( id );
+		Long count = this.drugRepository.count( expression );
+		return count;
+	}
+
+	/**
+	 * disease count
+	 * @param id ID
+	 * @return disease count
+	 */
+	public Long diseaseCount( Integer id ) {
+		QPathogensDiseas qDisease = QPathogensDiseas.pathogensDiseas;
+		BooleanExpression expression = qDisease.pathogen.id.eq( id );
+		Long count = this.diseaseRepository.count( expression );
+		return count;
+	}
+
+	/**
 	 * gets the page information
 	 * @param page page number
 	 * @param size page size
@@ -127,6 +176,8 @@ public class PathogenService {
 
 		return result;
 	}
+
+
 
 	/**
 	 * gets the page information

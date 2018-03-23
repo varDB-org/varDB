@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <body>
+    <section layout:fragment="content" th:object="${ gene }">
+      <h2>
+        <span>Gene:</span>
+        <span th:text="*{ id }"></span>
+      </h2>
+      <table class="table" style="margin-top: 30px;">
+        <tr>
+          <th>ID</th>
+          <td th:text="*{ id }"></td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td th:text="*{ description }"></td>
+        </tr>
+        <tr>
+          <th>Pathogen</th>
+          <td th:utext="${ pathogen }"></td>
+        </tr>
+        <tr>
+          <th>Family</th>
+          <td th:utext="${ family }"></td>
+        </tr>
+        <tr>
+          <th>Ortholog</th>
+          <td th:utext="*{ oc }"></td>
+        </tr>
+        <tr>
+          <th>AA Length</th>
+          <td><span th:if="${ kegg } != null" th:text="${ kegg.get( 'aalen' ) }"></span></td>
+        </tr>
+        <tr>
+          <th>AA Sequence</th>
+          <td style="word-break: break-all;"><span th:if="${ kegg } != null" th:text="${ kegg.get( 'aaseq' ) }"></span></td>
+        </tr>
+        <tr>
+          <th>NT Length</th>
+          <td><span th:if="${ kegg } != null" th:text="${ kegg.get( 'ntlen' ) }"></span></td>
+        </tr>
+        <tr>
+          <th>NT Sequence</th>
+          <td style="word-break: break-all"><span th:if="${ kegg } != null" th:text="${ kegg.get( 'ntseq' ) }"></span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</html>

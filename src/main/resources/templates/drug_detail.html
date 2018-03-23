@@ -51,14 +51,20 @@
           <td></td>
         </tr>
       </table>
-      <h4>Diseases</h4>
-      <div id="diseases"></div>
-      <h4 style="margin-top: 30px;">Pathogens</h4>
-      <div id="pathogens"></div>
-      <script th:inline="javascript">
-          vardb.createDrugPathogenTable( [[ ${ id } ]] );
+      <div th:if="${ diseaseCount } > 0">
+        <h4>Diseases</h4>
+        <div id="diseases"></div>
+        <script th:inline="javascript">
           vardb.createDrugDiseaseTable( [[ ${ id } ]] );
-      </script>
+        </script>
+      </div>
+      <div th:if="${ pathogenCount } > 0">
+        <h4 style="margin-top: 30px;">Pathogens</h4>
+        <div id="pathogens"></div>
+        <script th:inline="javascript">
+          vardb.createDrugPathogenTable( [[ ${ id } ]] );
+        </script>
+      </div>
     </section>
   </body>
 </html>

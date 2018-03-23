@@ -72,6 +72,8 @@ public class DrugController {
     		model.addAttribute( "drug", drug );
     		model.addAttribute( "item", item );
     		model.addAttribute( "id", id );
+    		model.addAttribute( "pathogenCount", this.service.pathogenCount( id ) );
+    		model.addAttribute( "diseaseCount", this.service.diseaseCount( id ) );
     	}
     	model.addAttribute( "pages", HtmlTool.getPages() );
     	model.addAttribute( "name", "drug" );

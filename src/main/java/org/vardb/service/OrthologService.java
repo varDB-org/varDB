@@ -65,6 +65,18 @@ public class OrthologService {
 	}
 
 	/**
+	 * reference count
+	 * @param id family ID
+	 * @return reference count
+	 */
+	public Long referenceCount( Integer id ) {
+		QOrthologsRef qRef = QOrthologsRef.orthologsRef;
+		BooleanExpression expression = qRef.ortholog.id.eq( id );
+		Long count = this.refRepository.count( expression );
+		return count;
+	}
+
+	/**
 	 * gets the page information
 	 * @param page page number
 	 * @param size page size

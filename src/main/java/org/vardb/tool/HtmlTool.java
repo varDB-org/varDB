@@ -20,6 +20,7 @@ public class HtmlTool {
 	public static List< PageInfo > getPages() {
 		ArrayList< PageInfo > array = new ArrayList< PageInfo >();
 
+		array.add( new PageInfo( "top", "Top" ) );
 		array.add( new PageInfo( "family", "Families" ) );
 		array.add( new PageInfo( "ortholog", "Orthologs" ) );
 		array.add( new PageInfo( "paralog", "Paralogs" ) );

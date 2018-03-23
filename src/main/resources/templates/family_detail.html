@@ -19,7 +19,7 @@
           <td th:text="*{ name }"></td>
         </tr>
         <tr>
-          <th>Abbregation</th>
+          <th>Abbrevition</th>
           <td th:text="*{ abbr }"></td>
         </tr>
         <tr th:object="${ family }">
@@ -39,11 +39,20 @@
           <td></td>
         </tr>
       </table>
-      <h4>References</h4>
-      <div id="refs"></div>
-      <script th:inline="javascript">
-          vardb.createFamilyReferenceTable( [[ ${ id } ]] );
-      </script>
+      <div th:if="${ refCount } > 0">
+        <h4>References</h4>
+        <div id="refs"></div>
+        <script th:inline="javascript">
+            vardb.createFamilyReferenceTable( [[ ${ id } ]] );
+        </script>
+      </div>
+      <div th:if="${ geneCount } > 0">
+        <h4>Genes</h4>
+        <div id="genes"></div>
+        <script th:inline="javascript">
+          vardb.createGeneTable( [[ ${ family.name } ]] );
+        </script>
+      </div>
     </section>
   </body>
 </html>

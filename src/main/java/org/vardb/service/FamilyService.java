@@ -33,7 +33,6 @@ public class FamilyService {
 	@Autowired
 	FamiliesRefRepository refRepository;
 
-
 	/**
 	 * finds all families
 	 * @return all families
@@ -58,6 +57,25 @@ public class FamilyService {
 	public Family findFamily( Integer id ) {
 		Family family = this.repository.getOne( id );
 		return family;
+	}
+
+	public Family findFamily( String name ) {
+		QFamily qFamily = QFamily.family;
+		BooleanExpression expression = qFamily.name.eq( name );
+		Family family = this.repository.findOne( expression );
+		return family;
+	}
+
+	/**
+	 * reference count
+	 * @param id family ID
+	 * @return reference count
+	 */
+	public Long referenceCount( Integer id ) {
+		QFamiliesRef qRef = QFamiliesRef.familiesRef;
+		BooleanExpression expression = qRef.family.id.eq( id );
+		Long count = this.refRepository.count( expression );
+		return count;
 	}
 
 	/**
@@ -91,7 +109,7 @@ public class FamilyService {
 		else {
 			QFamily qFamily = QFamily.family;
 			StringPath[] columns = {
-				qFamily.name, qFamily.description, qFamily.pathogen.name, qFamily.ortholog.name
+				qFamily.name, qFamily.abbr, qFamily.description, qFamily.pathogen.name, qFamily.ortholog.name
 			};
 
 			BooleanExpression expression = DatabaseTool.getExpression( columns, keyword );

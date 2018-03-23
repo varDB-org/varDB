@@ -57,6 +57,19 @@ public class DiseaseController {
     	return result;
     }
 
+    @ResponseBody
+    @RequestMapping( value = "/disease_refs", method = RequestMethod.GET)
+    public PageResult refJson(
+        	@RequestParam( name = "id" ) Integer id,
+        	@RequestParam( name = "page" ) Integer page,
+        	@RequestParam( name = "size" ) Integer size,
+        	@RequestParam( name = "sorters[0][field]", required = false ) String sort,
+        	@RequestParam( name = "sorters[0][dir]", required = false  ) String dir
+    ) {
+        PageResult result = this.service.refPage( id, page, size, sort, dir );
+    	return result;
+    }
+
     @RequestMapping( value = "/disease", method = RequestMethod.GET )
     public String view(
     		@RequestParam( name = "id", required = false ) Integer id,
@@ -71,6 +84,10 @@ public class DiseaseController {
     		model.addAttribute( "disease", disease );
     		model.addAttribute( "item", item );
     		model.addAttribute( "id", id );
+    		model.addAttribute( "refCount", this.service.referenceCount( id ) );
+    		model.addAttribute( "drugCount", this.service.drugCount( id ) );
+    		model.addAttribute( "pathogenCount", this.service.pathogenCount( id ) );
+    		model.addAttribute( "isHuman", disease.getHuman() );
     	}
     	model.addAttribute( "pages", HtmlTool.getPages() );
     	model.addAttribute( "name", "disease" );

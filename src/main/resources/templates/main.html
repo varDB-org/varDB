@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <body>
+    <section layout:fragment="content" th:object="${ item }">
+      <h2>varDB: Antigenec variation database</h2>
+      <p>
+        Many phylogenetically diverse organisms use antigenic variation to
+        avoid recognition by the immune system. varDB was developed to serve
+        as a centralized database of antigenically variable protein families
+        from a range of pathogenic organisms. Infectious diseases and their
+        pathogens are often studied in isolation, but observations made in
+        one species may be used to formulate hypotheses relevant to other taxa.
+      </p>
+      <p>
+        VarDB is intended to facilitate large-scale examination of the evolution
+        of antigenic gene families and help provide insight into how a conserved
+        function can be maintained despite extreme sequence diversity.
+      </p>
+    </section>
+  </body>
+</html>

@@ -11,12 +11,16 @@ import org.vardb.model.entity.Family;
 import org.vardb.model.response.FamilyItem;
 import org.vardb.model.response.PageResult;
 import org.vardb.service.FamilyService;
+import org.vardb.service.GeneService;
 import org.vardb.tool.HtmlTool;
 
 @Controller
 public class FamilyController {
     @Autowired
     FamilyService service;
+
+    @Autowired
+    GeneService geneService;
 
     @ResponseBody
     @RequestMapping( value = "/families", method = RequestMethod.GET)
@@ -60,6 +64,8 @@ public class FamilyController {
     		model.addAttribute( "family", family );
     		model.addAttribute( "item", item );
     		model.addAttribute( "id", family.getId() );
+    		model.addAttribute( "refCount", this.service.referenceCount( id ) );
+    		model.addAttribute( "geneCount", this.geneService.geneCount( family.getName() ) );
     	}
 
     	model.addAttribute( "pages", HtmlTool.getPages() );

@@ -71,7 +71,8 @@ public class TaxonomyController {
     		model.addAttribute( "taxon", taxon );
     		model.addAttribute( "item", item );
     		model.addAttribute( "id", id );
-
+    		model.addAttribute( "childCount", taxon.getTaxons().size() );
+    		model.addAttribute( "pathogenCount", taxon.getPathogens().size() );
     	}
     	model.addAttribute( "pages", HtmlTool.getPages() );
     	model.addAttribute( "name", "taxon" );

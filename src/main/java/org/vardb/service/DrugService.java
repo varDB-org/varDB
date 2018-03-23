@@ -65,6 +65,30 @@ public class DrugService {
 	}
 
 	/**
+	 * pathogen count
+	 * @param id ID
+	 * @return pathogen count
+	 */
+	public Long pathogenCount( Integer id ) {
+		QPathogensDrug qPathogen = QPathogensDrug.pathogensDrug;
+		BooleanExpression expression = qPathogen.drug.id.eq( id );
+		Long count = this.pathogenRepository.count( expression );
+		return count;
+	}
+
+	/**
+	 * disease count
+	 * @param id ID
+	 * @return disease count
+	 */
+	public Long diseaseCount( Integer id ) {
+		QDiseasesDrug qDisease = QDiseasesDrug.diseasesDrug;
+		BooleanExpression expression = qDisease.drug.id.eq( id );
+		Long count = this.diseaseRepository.count( expression );
+		return count;
+	}
+
+	/**
 	 * gets the page information
 	 * @param page page number
 	 * @param size page size
